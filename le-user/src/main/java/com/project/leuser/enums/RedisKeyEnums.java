@@ -1,8 +1,5 @@
 package com.project.leuser.enums;
 
-import com.project.leuser.annotation.AuthType;
-import com.project.leuser.annotation.NeedAuth;
-
 /**
  * @author whl
  * redis库的key

@@ -2,8 +2,8 @@ package com.project.leuser.controller;
 
 import com.project.lecommon.enums.ExceptionEnum;
 import com.project.lecommon.result.R;
-import com.project.leuser.annotation.AuthType;
-import com.project.leuser.annotation.NeedAuth;
+import com.project.lecommon.annotation.AuthType;
+import com.project.lecommon.annotation.NeedAuth;
 import com.project.leuser.dto.request.LoginDTO;
 import com.project.leuser.dto.request.RegisterDTO;
 import com.project.leuser.dto.response.TokenResponse;

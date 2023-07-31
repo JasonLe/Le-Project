@@ -1,9 +1,9 @@
-package com.project.leuser.controller;
+package com.example.leblog.controller;
 
+import com.example.leblog.dto.response.BlogResponse;
 import com.project.lecommon.result.R;
-import com.project.leuser.annotation.AuthType;
-import com.project.leuser.annotation.NeedAuth;
-import com.project.leuser.dto.response.BlogResponse;
+import com.project.lecommon.annotation.AuthType;
+import com.project.lecommon.annotation.NeedAuth;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @Description:
  * @date 2023/7/31
  */
-@RequestMapping("/le-user/blogs")
+@RequestMapping("/le-blog/blogs")
 @NeedAuth(AuthType.UNNECESSARY)
 @RestController
 public class BlogController {
