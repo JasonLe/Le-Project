@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="le-user" />
+        <module name="le-practice" />
+        <module name="le-common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="le-common" target="8" />
+      <module name="le-practice" target="8" />
+      <module name="le-user" target="8" />
+      <module name="LeProject" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="le-common" options="-parameters" />
+      <module name="le-practice" options="-parameters" />
+      <module name="le-user" options="-parameters" />
+    </option>
+  </component>
+</project>
