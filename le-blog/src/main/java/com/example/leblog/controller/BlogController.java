@@ -4,6 +4,7 @@ import com.example.leblog.dto.response.BlogResponse;
 import com.project.lecommon.result.R;
 import com.project.lecommon.annotation.AuthType;
 import com.project.lecommon.annotation.NeedAuth;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,12 @@ public class BlogController {
             }
         }
         return R.success(list);
+    }
+
+    @PostMapping("/save")
+    public R<Object> getBlogs(String article) {
+        System.out.println(article);
+        return R.success();
     }
 
     String getDigest() {
