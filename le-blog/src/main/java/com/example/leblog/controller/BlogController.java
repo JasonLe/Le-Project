@@ -1,15 +1,20 @@
 package com.example.leblog.controller;
 
-import com.example.leblog.dto.response.BlogResponse;
-import com.project.lecommon.result.R;
+import com.example.leblog.dto.request.GetDetailReqDTO;
+import com.example.leblog.dto.request.ListBlogReqDTO;
+import com.example.leblog.dto.request.SaveBlogReqDTO;
+import com.example.leblog.entity.BlogEntity;
+import com.example.leblog.service.BlogService;
 import com.project.lecommon.annotation.AuthType;
 import com.project.lecommon.annotation.NeedAuth;
+import com.project.lecommon.result.Page;
+import com.project.lecommon.result.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,33 +27,22 @@ import java.util.List;
 @RestController
 public class BlogController {
 
-    @RequestMapping("/get")
-    public R<List<BlogResponse>> getBlogs(int pageNum) {
-        List<BlogResponse> list = new ArrayList<>();
-        if (pageNum == 1) {
-            for (int i = 0; i < 10; i++) {
-                list.add(BlogResponse.builder().blogId(i).title("第" + i + "个标题").pubDate(new Date()).digest(getDigest()).build());
-            }
-        } else if (pageNum == 2) {
-            for (int i = 0; i < 5; i++) {
-                list.add(BlogResponse.builder().blogId(i).title("第" + i + "个标题").pubDate(new Date()).digest(getDigest()).build());
-            }
-        }
-        return R.success(list);
+    @Autowired
+    private BlogService blogService;
+
+    @PostMapping("/get")
+    public R<Page<List<BlogEntity>>> getBlogs(@RequestBody ListBlogReqDTO reqDTO) {
+        return R.success(blogService.getBlogs(reqDTO));
     }
 
     @PostMapping("/save")
-    public R<Object> getBlogs(String article) {
-        System.out.println(article);
+    public R<Object> saveBlog(@RequestBody SaveBlogReqDTO saveBlogReqDTO) {
+        blogService.saveBlog(saveBlogReqDTO);
         return R.success();
     }
 
-    String getDigest() {
-        StringBuilder digest = new StringBuilder();
-        for (int i = 0; i < 20; i++) {
-            digest.append("这是一个内容");
-        }
-        return digest.toString();
+    @PostMapping("/getDetail")
+    public R<BlogEntity> getBlogDetail(@RequestBody GetDetailReqDTO reqDTO) {
+        return R.success(blogService.getBlogDetail(reqDTO));
     }
-
 }
