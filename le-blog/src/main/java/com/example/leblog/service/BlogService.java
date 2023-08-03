@@ -1,13 +1,12 @@
 package com.example.leblog.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.leblog.dto.request.GetDetailReqDTO;
 import com.example.leblog.dto.request.ListBlogReqDTO;
 import com.example.leblog.dto.request.SaveBlogReqDTO;
 import com.example.leblog.entity.BlogEntity;
 import com.example.leblog.mapper.BlogMapper;
-import com.project.lecommon.result.Page;
-import com.project.lecommon.utils.PageUtil;
+import com.project.lecommon.result.PageResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,11 +24,20 @@ public class BlogService {
     @Resource
     private BlogMapper blogMapper;
 
-    public Page<List<BlogEntity>> getBlogs(ListBlogReqDTO reqDTO) {
-        Integer pageNum = PageUtil.getPageNum(reqDTO.getPageNum(), reqDTO.getPageSize());
-        Long count = blogMapper.selectCount(null);
-        List<BlogEntity> blogEntities = blogMapper.selectList(new LambdaQueryWrapper<BlogEntity>().last(String.format("limit %d,%d", pageNum, reqDTO.getPageSize())));
-        return Page.<List<BlogEntity>>builder().pageNum(pageNum).pageSize(reqDTO.getPageSize()).pageTotal(count.intValue()).data(blogEntities).build();
+    public PageResult<List<BlogEntity>> getBlogs(ListBlogReqDTO reqDTO) {
+//        Integer pageNum = PageUtil.getPageNum(reqDTO.getPageNum(), reqDTO.getPageSize());
+//        Long count = blogMapper.selectCount(null);
+//        List<BlogEntity> blogEntities = blogMapper.selectList(new LambdaQueryWrapper<BlogEntity>().last(String.format("limit %d,%d", pageNum, reqDTO.getPageSize())));
+//        return Page.<List<BlogEntity>>builder().pageNum(pageNum).pageSize(reqDTO.getPageSize()).pageTotal(count.intValue()).data(blogEntities).build();
+
+        Page<BlogEntity> blogEntityPage = blogMapper.selectPage(new Page<>(reqDTO.getPageNum(), reqDTO.getPageSize()), null);
+
+        return PageResult.<List<BlogEntity>>builder()
+                .pageNum(blogEntityPage.getCurrent())
+                .pages(blogEntityPage.getPages())
+                .pageTotal(blogEntityPage.getTotal())
+                .data(blogEntityPage.getRecords())
+                .build();
     }
 
     public void saveBlog(SaveBlogReqDTO saveBlogReqDTO) {
@@ -47,7 +55,7 @@ public class BlogService {
 
     String getDigest(String content) {
         // todo 摘要提取
-        return content;
+        return content.substring(0,10);
     }
 
     public BlogEntity getBlogDetail(GetDetailReqDTO reqDTO) {

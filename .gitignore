@@ -5,3 +5,6 @@
 /le-user/target/
 /le-blog/.mvn/
 /le-blog/target/
+/le-practice/target/classes/*
+/le-blog/src/test/*
+/le-practice/target/*

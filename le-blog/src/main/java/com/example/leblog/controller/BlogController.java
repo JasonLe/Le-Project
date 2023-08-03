@@ -7,7 +7,7 @@ import com.example.leblog.entity.BlogEntity;
 import com.example.leblog.service.BlogService;
 import com.project.lecommon.annotation.AuthType;
 import com.project.lecommon.annotation.NeedAuth;
-import com.project.lecommon.result.Page;
+import com.project.lecommon.result.PageResult;
 import com.project.lecommon.result.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,7 @@ public class BlogController {
     private BlogService blogService;
 
     @PostMapping("/get")
-    public R<Page<List<BlogEntity>>> getBlogs(@RequestBody ListBlogReqDTO reqDTO) {
+    public R<PageResult<List<BlogEntity>>> getBlogs(@RequestBody ListBlogReqDTO reqDTO) {
         return R.success(blogService.getBlogs(reqDTO));
     }
 

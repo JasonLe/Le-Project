@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Page<T> {
-    private Integer pageNum;
-    private Integer pageSize;
-    private Integer pageTotal;
+public class PageResult<T> {
+    private Long pageNum;
+    private Long pages;
+    private Long pageTotal;
     private T data;
 }
