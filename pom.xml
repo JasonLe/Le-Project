@@ -19,6 +19,8 @@
     <modules>
         <module>le-user</module>
         <module>le-common</module>
+        <module>le-blog</module>
+        <module>le-practice</module>
     </modules>
 
     <properties>
