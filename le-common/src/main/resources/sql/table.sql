@@ -25,13 +25,15 @@ CREATE TABLE `blog` (
                         `title` varchar(255) NOT NULL COMMENT '博客标题',
                         `digest` varchar(255) DEFAULT NULL COMMENT '博客摘要',
                         `content` text COMMENT '博客内容',
+                        `image` varchar(255) DEFAULT NULL COMMENT '封面',
                         `praise` int(255) unsigned NOT NULL DEFAULT '0' COMMENT '点赞量',
+                        `type` int(5) NOT NULL COMMENT '类型',
                         `status` int(10) NOT NULL COMMENT '博客状态',
                         `create_time` datetime NOT NULL COMMENT '创建时间',
                         `update_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                         PRIMARY KEY (`id`) USING BTREE,
                         UNIQUE KEY `IDX_title` (`title`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
