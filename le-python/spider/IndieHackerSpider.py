@@ -3,32 +3,68 @@ from bs4 import BeautifulSoup
 import requests
 import pymysql
 
-if __name__ == '__main__':
-    html_data = requests.get("https://www.indiehackers.com/").content
+
+def getSoup(url):
+    html_data = requests.get(url).content
     soup = BeautifulSoup(html_data, "lxml")
-    firstColumn = soup.findAll("div", class_="story homepage-post ember-view normal")
+    return soup
+
+
+if __name__ == '__main__':
 
     db = pymysql.connect(host='127.0.0.1',
                          user='root',
                          password='root',
                          database='le-project')
-    insert_sql = "insert into blog(`title`, `digest`, `content`, `praise`, `status`,create_time,update_time) value (%s,%s,%s,%s,%s,now(),now()) " \
-                 "ON DUPLICATE KEY UPDATE content = %s,praise=%s,update_time=now() "
-    cursor = db.cursor()
-    for row in firstColumn:
-        title = row.find('h3').text
-        detail_url = "https://www.indiehackers.com"+row.find_all('a')[0]['href']
-        like_num = int(row.select("[class~=story__count-number]")[0].text)
-        comment_num = int(row.select("[class~=story__count-number]")[1].text)
 
-        params = []
+    soup = getSoup("https://www.indiehackers.com/")
+    # column_list = ["story homepage-post ember-view normal", "story homepage-post ember-view"]
+    column_list = ["story homepage-post ember-view"]
 
-        params.append(title)
-        params.append(title)
-        params.append(title)
-        params.append(like_num)
-        params.append(0)
-        params.append(title)
-        params.append(like_num)
-        cursor.execute(insert_sql, params)
-        db.commit()
+    for index in range(len(column_list)):
+
+        firstColumn = soup.findAll("div", class_=column_list[index])
+
+        insert_sql = "insert into blog(`title`, `digest`, `content`,`image`, `praise`,`type`, `status`,create_time,update_time) value (%s,%s,%s,%s,%s,%s,%s,now(),now()) " \
+                     "ON DUPLICATE KEY UPDATE content = %s,praise=%s,update_time=now() "
+        cursor = db.cursor()
+        for row in firstColumn:
+            params = []
+
+            # title = row.find('h3').text
+            detail_url = "https://www.indiehackers.com" + row.find_all('a')[0]['href']
+            # like_num = int(row.select("[class~=story__count-number]")[0].text)
+            # comment_num = int(row.select("[class~=story__count-number]")[1].text)
+
+            if index == 1:
+                image = row.find_all('img')[0]['src']
+            else:
+                image = ""
+
+
+            detail_soup = getSoup(detail_url)
+            detail_soup.find()
+
+            title = detail_soup.find("h1", "post-page__title").text
+            content_list = detail_soup.find("div", "post-page__body content ember-view")
+
+            if content_list == None:
+                continue
+            content_list = content_list.contents
+            content = ''.join('%s' % item for item in (content_list))
+
+            like_num = detail_soup.find("div", "post-liker__count").text
+            author = detail_soup.find("a", "ember-view post-page__byline").text
+
+            params.append(title)
+            params.append(title)
+            params.append(content)
+            params.append(image)
+            params.append(like_num)
+            params.append(index)
+            params.append(0)
+            params.append(content)
+            params.append(like_num)
+            cursor.execute(insert_sql, params)
+            db.commit()
+            print("下载完成：" + title)

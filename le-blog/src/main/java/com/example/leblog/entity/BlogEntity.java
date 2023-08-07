@@ -37,6 +37,15 @@ public class BlogEntity {
     @TableField(value = "status")
     private Integer status;
 
+    @TableField(value = "image")
+    private String image;
+
+    @TableField(value = "praise")
+    private Integer praise;
+
+    @TableField(value = "type")
+    private Integer type;
+
     @TableField(value = "create_time")
     private Date createTime;
 

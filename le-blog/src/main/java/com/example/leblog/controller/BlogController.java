@@ -3,6 +3,7 @@ package com.example.leblog.controller;
 import com.example.leblog.dto.request.GetDetailReqDTO;
 import com.example.leblog.dto.request.ListBlogReqDTO;
 import com.example.leblog.dto.request.SaveBlogReqDTO;
+import com.example.leblog.dto.response.ListBlogResDTO;
 import com.example.leblog.entity.BlogEntity;
 import com.example.leblog.service.BlogService;
 import com.project.lecommon.annotation.AuthType;
@@ -33,6 +34,11 @@ public class BlogController {
     @PostMapping("/get")
     public R<PageResult<List<BlogEntity>>> getBlogs(@RequestBody ListBlogReqDTO reqDTO) {
         return R.success(blogService.getBlogs(reqDTO));
+    }
+
+    @PostMapping("/getByType")
+    public R<List<ListBlogResDTO>> getByType(@RequestBody ListBlogReqDTO reqDTO) {
+        return R.success(blogService.getByType(reqDTO));
     }
 
     @PostMapping("/save")

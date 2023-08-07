@@ -1,15 +1,21 @@
 package com.example.leblog.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.leblog.dto.request.GetDetailReqDTO;
 import com.example.leblog.dto.request.ListBlogReqDTO;
 import com.example.leblog.dto.request.SaveBlogReqDTO;
+import com.example.leblog.dto.response.ListBlogResDTO;
 import com.example.leblog.entity.BlogEntity;
 import com.example.leblog.mapper.BlogMapper;
+import com.example.leblog.utils.MarkdownUtils;
 import com.project.lecommon.result.PageResult;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,25 +46,51 @@ public class BlogService {
                 .build();
     }
 
+    public List<ListBlogResDTO> getByType(ListBlogReqDTO reqDTO) {
+        Integer type = reqDTO.getType();
+        List<BlogEntity> entityList = blogMapper.selectList(new QueryWrapper<BlogEntity>()
+                .eq("type", type));
+
+        List<ListBlogResDTO> list = new ArrayList<>(entityList.size());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (BlogEntity blogEntity : entityList) {
+
+            ListBlogResDTO temp = new ListBlogResDTO();
+            BeanUtils.copyProperties(blogEntity, temp);
+
+            if (type == 0) {
+                temp.setContent("");
+                temp.setDigest("");
+            }
+            list.add(temp);
+        }
+        return list;
+    }
+
     public void saveBlog(SaveBlogReqDTO saveBlogReqDTO) {
         // todo 参数校验
         BlogEntity blogEntity = BlogEntity.builder()
                 .title(saveBlogReqDTO.getTitle())
                 .digest(getDigest(saveBlogReqDTO.getContent()))
                 .content(saveBlogReqDTO.getContent())
+                .type(0)
+                .status(0)
                 .createTime(new Date())
                 .updateTime(new Date())
-                .status(0)
                 .build();
         blogMapper.insert(blogEntity);
     }
 
     String getDigest(String content) {
         // todo 摘要提取
-        return content.substring(0,10);
+        return content.substring(0, 10);
     }
 
     public BlogEntity getBlogDetail(GetDetailReqDTO reqDTO) {
-        return blogMapper.selectById(Integer.parseInt(reqDTO.getBlogId()));
+        BlogEntity blogEntity = blogMapper.selectById(Integer.parseInt(reqDTO.getBlogId()));
+        blogEntity.setContent(MarkdownUtils.markdownToHtmlExtensions(blogEntity.getContent()));
+        return blogEntity;
     }
 }

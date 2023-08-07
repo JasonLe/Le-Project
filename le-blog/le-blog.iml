@@ -23,7 +23,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.7.6" level="project" />
@@ -126,5 +126,8 @@
     <orderEntry type="library" name="Maven: com.github.ben-manes.caffeine:caffeine:2.9.3" level="project" />
     <orderEntry type="library" name="Maven: org.checkerframework:checker-qual:3.19.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.commonmark:commonmark:0.17.0" level="project" />
+    <orderEntry type="library" name="Maven: org.commonmark:commonmark-ext-heading-anchor:0.17.0" level="project" />
+    <orderEntry type="library" name="Maven: org.commonmark:commonmark-ext-gfm-tables:0.17.0" level="project" />
   </component>
 </module>
