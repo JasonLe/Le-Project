@@ -1,5 +1,6 @@
 package com.example.leblog.service;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.leblog.dto.request.GetDetailReqDTO;
@@ -9,12 +10,12 @@ import com.example.leblog.dto.response.ListBlogResDTO;
 import com.example.leblog.entity.BlogEntity;
 import com.example.leblog.mapper.BlogMapper;
 import com.example.leblog.utils.MarkdownUtils;
+import com.example.leblog.utils.RedisUtils;
 import com.project.lecommon.result.PageResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,9 @@ public class BlogService {
 
     @Resource
     private BlogMapper blogMapper;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     public PageResult<List<BlogEntity>> getBlogs(ListBlogReqDTO reqDTO) {
 //        Integer pageNum = PageUtil.getPageNum(reqDTO.getPageNum(), reqDTO.getPageSize());
@@ -47,25 +51,31 @@ public class BlogService {
     }
 
     public List<ListBlogResDTO> getByType(ListBlogReqDTO reqDTO) {
+
+        String redisKey = "searchTypeKey:" + reqDTO.getType();
+        Object o = redisUtils.get(redisKey);
+        if (ObjectUtil.isNotNull(o)) {
+            return (List<ListBlogResDTO>) o;
+        }
+
         Integer type = reqDTO.getType();
         List<BlogEntity> entityList = blogMapper.selectList(new QueryWrapper<BlogEntity>()
                 .eq("type", type));
 
         List<ListBlogResDTO> list = new ArrayList<>(entityList.size());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         for (BlogEntity blogEntity : entityList) {
-
             ListBlogResDTO temp = new ListBlogResDTO();
             BeanUtils.copyProperties(blogEntity, temp);
-
             if (type == 0) {
                 temp.setContent("");
                 temp.setDigest("");
             }
             list.add(temp);
         }
+
+        redisUtils.set(redisKey, list, 60);
         return list;
     }
 

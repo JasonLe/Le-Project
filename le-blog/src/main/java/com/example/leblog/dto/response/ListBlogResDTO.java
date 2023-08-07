@@ -2,13 +2,15 @@ package com.example.leblog.dto.response;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author whl
  * @Description:
  * @date 2023/8/7
  */
 @Data
-public class ListBlogResDTO {
+public class ListBlogResDTO implements Serializable {
     private Integer id;
 
     private String title;

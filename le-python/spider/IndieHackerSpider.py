@@ -18,8 +18,8 @@ if __name__ == '__main__':
                          database='le-project')
 
     soup = getSoup("https://www.indiehackers.com/")
-    # column_list = ["story homepage-post ember-view normal", "story homepage-post ember-view"]
-    column_list = ["story homepage-post ember-view"]
+    column_list = ["story homepage-post ember-view normal", "story homepage-post ember-view"]
+    # column_list = ["story homepage-post ember-view"]
 
     for index in range(len(column_list)):
 
