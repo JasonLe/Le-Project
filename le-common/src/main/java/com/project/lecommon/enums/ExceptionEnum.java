@@ -13,19 +13,19 @@ public enum ExceptionEnum {
     /**
      * 系统错误
      **/
-    ERROR(600,"系统错误"),
+    ERROR(600, "系统错误"),
 
-    NO_LOGIN(601,"请登录后重试"),
+    NO_LOGIN(601, "请登录后重试"),
 
-    TOKEN_EXPIRED(602,"登录已过期"),
+    TOKEN_EXPIRED(602, "登录已过期"),
 
-    TOKEN_ERROR(603,"token有误"),
+    TOKEN_ERROR(603, "token有误"),
 
-    REGISTER_ERROR(604,"注册失败"),
+    REGISTER_ERROR(604, "注册失败"),
 
-    USER_NOT_EXISTS(605,"用户不存在"),
+    USER_NOT_EXISTS(605, "用户不存在"),
 
-    ACCOUNT_PWD_ERROR(606,"账号密码错误"),
+    ACCOUNT_PWD_ERROR(606, "账号密码错误"),
     ;
 
     private final Integer code;

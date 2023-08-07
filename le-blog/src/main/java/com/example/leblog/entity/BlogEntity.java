@@ -22,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BlogEntity {
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @TableField(value = "title")
@@ -30,7 +30,7 @@ public class BlogEntity {
 
     @TableField(value = "digest")
     private String digest;
-    
+
     @TableField(value = "content")
     private String content;
 

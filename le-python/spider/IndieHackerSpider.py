@@ -1,7 +1,6 @@
-from lxml import etree
-from bs4 import BeautifulSoup
-import requests
 import pymysql
+import requests
+from bs4 import BeautifulSoup
 
 
 def getSoup(url):
@@ -40,7 +39,6 @@ if __name__ == '__main__':
                 image = row.find_all('img')[0]['src']
             else:
                 image = ""
-
 
             detail_soup = getSoup(detail_url)
             detail_soup.find()

@@ -12,11 +12,11 @@ import com.project.leuser.entity.User;
  */
 public interface UserService {
     /**
+     * @param loginDTO
+     * @return User
      * @author whl
      * @description 登录接口
      * @date 2023/7/12
-     * @param loginDTO
-     * @return User
      **/
     TokenResponse login(LoginDTO loginDTO);
 

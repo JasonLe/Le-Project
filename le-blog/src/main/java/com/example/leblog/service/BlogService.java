@@ -35,11 +35,6 @@ public class BlogService {
     private RedisUtils redisUtils;
 
     public PageResult<List<BlogEntity>> getBlogs(ListBlogReqDTO reqDTO) {
-//        Integer pageNum = PageUtil.getPageNum(reqDTO.getPageNum(), reqDTO.getPageSize());
-//        Long count = blogMapper.selectCount(null);
-//        List<BlogEntity> blogEntities = blogMapper.selectList(new LambdaQueryWrapper<BlogEntity>().last(String.format("limit %d,%d", pageNum, reqDTO.getPageSize())));
-//        return Page.<List<BlogEntity>>builder().pageNum(pageNum).pageSize(reqDTO.getPageSize()).pageTotal(count.intValue()).data(blogEntities).build();
-
         Page<BlogEntity> blogEntityPage = blogMapper.selectPage(new Page<>(reqDTO.getPageNum(), reqDTO.getPageSize()), null);
 
         return PageResult.<List<BlogEntity>>builder()
@@ -93,9 +88,11 @@ public class BlogService {
         blogMapper.insert(blogEntity);
     }
 
+    /**
+     * 简易的获取摘要
+     */
     String getDigest(String content) {
-        // todo 摘要提取
-        return content.substring(0, 10);
+        return content.substring(0, 10) + "...";
     }
 
     public BlogEntity getBlogDetail(GetDetailReqDTO reqDTO) {

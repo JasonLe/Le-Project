@@ -17,12 +17,12 @@ public class MyException extends RuntimeException {
     private Integer code;
     private String msg;
 
-    public MyException(String msg){
+    public MyException(String msg) {
         this.code = 600;
         this.msg = msg;
     }
 
-    public MyException(ExceptionEnum exceptionEnum){
+    public MyException(ExceptionEnum exceptionEnum) {
         this.code = exceptionEnum.getCode();
         this.msg = exceptionEnum.getMsg();
     }

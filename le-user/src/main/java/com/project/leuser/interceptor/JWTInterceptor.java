@@ -3,10 +3,10 @@ package com.project.leuser.interceptor;
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.project.lecommon.enums.ExceptionEnum;
-import com.project.lecommon.exception.MyException;
 import com.project.lecommon.annotation.AuthType;
 import com.project.lecommon.annotation.NeedAuth;
+import com.project.lecommon.enums.ExceptionEnum;
+import com.project.lecommon.exception.MyException;
 import com.project.leuser.utils.JWTUtil;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -39,12 +39,12 @@ public class JWTInterceptor implements HandlerInterceptor {
         }
 
         if (annotationOnMethod != null) {
-            if (AuthType.UNNECESSARY.equals(annotationOnMethod.value())){
+            if (AuthType.UNNECESSARY.equals(annotationOnMethod.value())) {
                 return true;
             }
-        }else {
+        } else {
             NeedAuth needAuth = annotationOnClass[0];
-            if (AuthType.UNNECESSARY.equals(needAuth.value())){
+            if (AuthType.UNNECESSARY.equals(needAuth.value())) {
                 return true;
             }
         }

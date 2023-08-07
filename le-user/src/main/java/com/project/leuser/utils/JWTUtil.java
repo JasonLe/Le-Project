@@ -7,7 +7,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.project.leuser.entity.User;
 
 import java.util.Calendar;
-import java.util.Map;
 
 /**
  * @author whl
@@ -33,10 +32,10 @@ public class JWTUtil {
     public static String generateToken(User user) {
         JWTCreator.Builder builder = JWT.create();
         // 设置载荷
-        builder.withClaim("id",user.getId());
-        builder.withClaim("username",user.getUsername());
-        builder.withClaim("mobile",user.getMobile());
-        builder.withClaim("location",user.getLocation());
+        builder.withClaim("id", user.getId());
+        builder.withClaim("username", user.getUsername());
+        builder.withClaim("mobile", user.getMobile());
+        builder.withClaim("location", user.getLocation());
 
         // 设置过期时间
         Calendar calendar = Calendar.getInstance();

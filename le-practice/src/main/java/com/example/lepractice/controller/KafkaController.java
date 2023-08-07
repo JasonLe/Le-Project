@@ -14,6 +14,6 @@ public class KafkaController {
 
     @RequestMapping("/send")
     public void sendMessage() {
-        
+
     }
 }
