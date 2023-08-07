@@ -2,6 +2,8 @@ package com.example.leblog.dto.request;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author whl
  * @Description:
@@ -11,5 +13,7 @@ import lombok.Data;
 public class ListBlogReqDTO {
     private Integer pageNum;
     private Integer pageSize;
+
+    @NotNull(message = "参数错误，缺少type")
     private Integer type;
 }

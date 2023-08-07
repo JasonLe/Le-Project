@@ -11,6 +11,7 @@ import com.project.lecommon.annotation.NeedAuth;
 import com.project.lecommon.result.PageResult;
 import com.project.lecommon.result.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,18 +38,18 @@ public class BlogController {
     }
 
     @PostMapping("/getByType")
-    public R<List<ListBlogResDTO>> getByType(@RequestBody ListBlogReqDTO reqDTO) {
+    public R<List<ListBlogResDTO>> getByType(@RequestBody @Validated ListBlogReqDTO reqDTO) {
         return R.success(blogService.getByType(reqDTO));
     }
 
     @PostMapping("/save")
-    public R<Object> saveBlog(@RequestBody SaveBlogReqDTO saveBlogReqDTO) {
+    public R<Object> saveBlog(@RequestBody @Validated SaveBlogReqDTO saveBlogReqDTO) {
         blogService.saveBlog(saveBlogReqDTO);
         return R.success();
     }
 
     @PostMapping("/getDetail")
-    public R<BlogEntity> getBlogDetail(@RequestBody GetDetailReqDTO reqDTO) {
+    public R<BlogEntity> getBlogDetail(@RequestBody @Validated GetDetailReqDTO reqDTO) {
         return R.success(blogService.getBlogDetail(reqDTO));
     }
 }

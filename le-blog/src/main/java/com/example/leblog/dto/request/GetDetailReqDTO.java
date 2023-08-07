@@ -2,6 +2,8 @@ package com.example.leblog.dto.request;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author whl
  * @Description:
@@ -9,5 +11,6 @@ import lombok.Data;
  */
 @Data
 public class GetDetailReqDTO {
+    @NotNull(message = "请选择文章")
     private String blogId;
 }

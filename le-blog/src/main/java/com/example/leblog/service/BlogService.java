@@ -75,7 +75,6 @@ public class BlogService {
     }
 
     public void saveBlog(SaveBlogReqDTO saveBlogReqDTO) {
-        // todo 参数校验
         BlogEntity blogEntity = BlogEntity.builder()
                 .title(saveBlogReqDTO.getTitle())
                 .digest(getDigest(saveBlogReqDTO.getContent()))
