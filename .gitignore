@@ -8,3 +8,7 @@
 /le-practice/target/classes/*
 /le-blog/src/test/*
 /le-practice/target/*
+/le-blog/le-blog.iml
+/le-common/le-common.iml
+/le-practice/le-practice.iml
+/le-user/le-user.iml
