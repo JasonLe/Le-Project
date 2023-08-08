@@ -1,5 +1,6 @@
 package com.example.leblog.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @Description
  * @date 2023/8/7 23:06
  */
+@Slf4j
 @Component
 public final class RedisUtils {
 
@@ -128,7 +130,7 @@ public final class RedisUtils {
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis set 失败");
             return false;
         }
     }

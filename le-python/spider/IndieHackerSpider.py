@@ -37,22 +37,24 @@ if __name__ == '__main__':
 
             if index == 1:
                 image = row.find_all('img')[0]['src']
+                if "http" not in image:
+                    image = ""
             else:
                 image = ""
 
             detail_soup = getSoup(detail_url)
             detail_soup.find()
 
-            title = detail_soup.find("h1", "post-page__title").text
+            title = detail_soup.find("h1", "post-page__title").text.strip()
             content_list = detail_soup.find("div", "post-page__body content ember-view")
 
             if content_list == None:
                 continue
             content_list = content_list.contents
-            content = ''.join('%s' % item for item in (content_list))
+            content = ''.join('%s' % item for item in (content_list)).strip()
 
-            like_num = detail_soup.find("div", "post-liker__count").text
-            author = detail_soup.find("a", "ember-view post-page__byline").text
+            like_num = detail_soup.find("div", "post-liker__count").text.strip()
+            author = detail_soup.find("a", "ember-view post-page__byline").text.strip()
 
             params.append(title)
             params.append(title)

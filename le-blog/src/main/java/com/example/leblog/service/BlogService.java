@@ -48,9 +48,13 @@ public class BlogService {
     public List<ListBlogResDTO> getByType(ListBlogReqDTO reqDTO) {
 
         String redisKey = "searchTypeKey:" + reqDTO.getType();
-        Object o = redisUtils.get(redisKey);
-        if (ObjectUtil.isNotNull(o)) {
-            return (List<ListBlogResDTO>) o;
+        try {
+            Object o = redisUtils.get(redisKey);
+            if (ObjectUtil.isNotNull(o)) {
+                return (List<ListBlogResDTO>) o;
+            }
+        } catch (Exception e) {
+
         }
 
         Integer type = reqDTO.getType();
