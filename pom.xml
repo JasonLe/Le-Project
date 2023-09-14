@@ -21,6 +21,7 @@
         <module>le-common</module>
         <module>le-blog</module>
         <module>le-practice</module>
+        <module>le-gateway</module>
     </modules>
 
     <properties>

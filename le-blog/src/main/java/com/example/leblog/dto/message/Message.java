@@ -2,8 +2,6 @@ package com.example.leblog.dto.message;
 
 import lombok.*;
 
-import java.io.Serializable;
-
 /**
  * @author whl
  * @Description:

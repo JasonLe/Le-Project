@@ -1,0 +1,14 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: le-gateway
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: user-service
+#          uri: http://localhost:8080
+#          predicates:
+#            - Path=/le-user/**
+
+
